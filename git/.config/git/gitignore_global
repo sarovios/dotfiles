@@ -1,0 +1,51 @@
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Logs
+*.log
+logs/
+
+# Dependencies
+node_modules/
+bower_components/
+
+# Build outputs
+dist/
+build/
+target/
+*.o
+*.class
+
+# Environment files
+.env
+.env.local
+.env.production
+.env.development
+
+# Cache
+.cache/
+*.tmp
+*.temp
+
+# Archives
+*.zip
+*.tar.gz
+*.rar
+
+# Backup files
+*.backup
+*.bak
+*.orig
