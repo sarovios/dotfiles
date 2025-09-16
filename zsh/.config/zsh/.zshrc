@@ -1,6 +1,13 @@
 # ~/.config/zsh/.zshrc
 # Main zsh configuration file
 
+# Homebrew setup (for Apple Silicon Macs) - MUST BE EARLY
+if [[ -f "/opt/homebrew/bin/brew" ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -f "/usr/local/bin/brew" ]]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+fi
+
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
@@ -97,13 +104,6 @@ fi
 export EDITOR="nvim"
 export VISUAL="nvim"
 export BROWSER="firefox"
-
-# Homebrew setup (for Apple Silicon Macs)
-if [[ -f "/opt/homebrew/bin/brew" ]]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-elif [[ -f "/usr/local/bin/brew" ]]; then
-    eval "$(/usr/local/bin/brew shellenv)"
-fi
 
 # Add local bin to PATH
 export PATH="$HOME/.local/bin:$PATH"
