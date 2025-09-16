@@ -12,6 +12,11 @@ fi
 mkdir -p "$XDG_DATA_HOME/zsh"
 mkdir -p "$XDG_CACHE_HOME"
 
+# Set zsh sessions directory (macOS terminal session restoration)
+export SHELL_SESSIONS_DISABLE=0
+export SHELL_SESSION_DIR="$XDG_CACHE_HOME/zsh/sessions"
+mkdir -p "$SHELL_SESSION_DIR"
+
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
