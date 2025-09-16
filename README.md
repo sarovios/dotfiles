@@ -33,12 +33,12 @@ brew bundle
 # Install individual configurations
 stow git        # Git configuration
 stow zsh        # Shell configuration  
-stow vim        # Neovim configuration
+stow nvim       # Neovim configuration
 stow tmux       # Terminal multiplexer
 stow starship   # Shell prompt
 
 # Or install multiple at once
-stow git zsh vim tmux starship
+stow git zsh nvim tmux starship
 ```
 
 ## Structure
@@ -49,25 +49,26 @@ dotfiles/
 ├── README.md            # This file
 ├── install.sh           # Automated setup script
 ├── Brewfile             # Homebrew packages
-├── git/                 # Git configuration
-│   └── .config/git/
-│       ├── config       # Git settings and aliases
-│       └── gitignore_global
-├── zsh/                 # Shell configuration
-│   ├── .zshenv         # Environment variables
-│   └── .config/zsh/
-│       ├── .zshrc      # Main zsh config
-│       ├── aliases.zsh # Command aliases
-│       └── functions.zsh # Custom functions
-├── vim/                 # Neovim configuration
-│   └── .config/nvim/
-│       └── init.vim    # Neovim config with plugins
-├── tmux/                # Terminal multiplexer
-│   └── .config/tmux/
-│       └── tmux.conf   # Tmux configuration
-├── starship/            # Shell prompt
+├── git/                    # Git configuration
 │   └── .config/
-│       └── starship.toml # Prompt configuration
+│       └── git/
+│           ├── config      # Git user settings, aliases, and preferences
+│           └── gitignore_global
+├── neovim/                 # Neovim configuration (bring your own)
+├── starship/              # Cross-shell prompt
+│   └── .config/
+│       └── starship.toml
+├── tmux/                  # Terminal multiplexer
+│   └── .config/
+│       └── tmux/
+│           └── tmux.conf
+└── zsh/                   # Shell configuration
+    ├── .zshenv            # XDG base directory specification
+    └── .config/
+        └── zsh/
+            ├── .zshrc     # Main shell configuration
+            ├── aliases.zsh
+            └── functions.zsh
 └── scripts/             # Utility scripts
     ├── update.sh       # Update packages and plugins
     └── backup.sh       # Backup existing configs
@@ -90,7 +91,7 @@ The configuration is modular and easy to customize:
 - **Functions**: Useful shell functions for development
 
 ### Development Tools
-- **Neovim**: Configured with vim-plug and essential plugins
+- **Neovim**: Your custom nvim configuration
 - **Tmux**: Vim-like keybindings and modern settings
 - **Packages**: Curated list of development tools in Brewfile
 
@@ -114,7 +115,7 @@ The configuration is modular and easy to customize:
 ### Remove Configurations
 ```bash
 stow -D git            # Remove git config
-stow -D zsh vim        # Remove multiple configs
+stow -D zsh nvim       # Remove multiple configs
 ```
 
 ## Dependencies
@@ -138,7 +139,7 @@ stow -D zsh vim        # Remove multiple configs
 - **Custom Functions**: Useful utilities for development workflow
 
 ### Development Environment
-- **Neovim**: Modern vim setup with essential plugins
+- **Neovim**: Your personal nvim setup and configuration
 - **Tmux**: Terminal multiplexer with vim-like navigation
 - **Homebrew**: Curated package list for development tools
 
