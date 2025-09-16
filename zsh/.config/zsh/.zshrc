@@ -45,7 +45,10 @@ zinit snippet OMZP::kubectx
 zinit snippet OMZP::command-not-found
 
 # Load completions
-autoload -Uz compinit && compinit
+autoload -Uz compinit 
+
+# Use cache directory for completion dump
+compinit -d "$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"
 
 zinit cdreplay -q
 
@@ -116,6 +119,9 @@ export BROWSER="firefox"
 
 # Add local bin to PATH
 export PATH="$HOME/.local/bin:$PATH"
+
+# JetBrains Toolbox (IntelliJ, PyCharm, etc.)
+export PATH="$PATH:$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
 
 # Node.js
 export PATH="$HOME/.npm-global/bin:$PATH"
