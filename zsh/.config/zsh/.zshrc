@@ -94,6 +94,7 @@ else
 fi
 
 if command -v starship >/dev/null 2>&1; then
+    export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
     eval "$(starship init zsh)"
 else
     echo "Warning: starship not found. Install with 'brew install starship' for modern prompt."
