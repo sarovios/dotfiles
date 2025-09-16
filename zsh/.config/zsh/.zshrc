@@ -8,6 +8,10 @@ elif [[ -f "/usr/local/bin/brew" ]]; then
     eval "$(/usr/local/bin/brew shellenv)"
 fi
 
+# Ensure XDG directories exist
+mkdir -p "$XDG_DATA_HOME/zsh"
+mkdir -p "$XDG_CACHE_HOME"
+
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
@@ -48,7 +52,7 @@ bindkey '^[w' kill-region
 
 # History
 HISTSIZE=5000
-HISTFILE=~/.zsh_history
+HISTFILE="$XDG_DATA_HOME/zsh/history"
 SAVEHIST=$HISTSIZE
 HISTDUP=erase
 setopt appendhistory
