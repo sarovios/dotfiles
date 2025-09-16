@@ -50,12 +50,14 @@
     cm = commit -m
     ca = commit --amend
     can = commit --amend --no-edit
+    com = "!f() { git add . && git commit -m \"$1\"; }; f"
 
     # Checkout
     co = checkout
     cb = checkout -b
     sw = switch
     swc = switch -c
+    new = checkout -b
 
     # Branch
     b = branch
@@ -69,6 +71,7 @@
     lg = log --oneline --graph --decorate
     lga = log --oneline --graph --decorate --all
     ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+    glog = log --oneline --graph --decorate
 
     # Diff
     d = diff
@@ -86,9 +89,10 @@
     pf = push --force-with-lease
     pl = pull
     pu = push -u origin HEAD
+    push-current = "!git push -u origin $(git branch --show-current)"
 
     # Stash
-    st = stash
+    stash-save = stash
     stp = stash pop
     stl = stash list
     sts = stash show
