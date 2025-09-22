@@ -117,3 +117,80 @@ vid2gif() {
         echo "ffmpeg not installed"
     fi
 }
+
+# AWS Profile Management Functions
+
+# List all available AWS profiles
+aws-list-profiles() {
+    echo "Available AWS profiles:"
+    aws configure list-profiles
+}
+
+aws-list-regions() {
+    echo "Available AWS regions:"
+    aws ec2 describe-regions --output table
+}
+
+# Show current AWS profile
+aws-current-profile() {
+    echo "Current AWS Profile: ${AWS_PROFILE:-default}"
+}
+
+# Set AWS profile
+aws-set-profile() {
+    if [ -z "$1" ]; then
+        echo "Usage: aws-set-profile <profile-name>"
+        echo "Use 'aws-list-profiles' to see available profiles"
+        return 1
+    fi
+    
+    export AWS_PROFILE="$1"
+    echo "AWS Profile set to: $AWS_PROFILE"
+}
+
+# Interactive AWS profile selection using fzf
+aws-select-profile() {
+    if ! command -v fzf >/dev/null 2>&1; then
+        echo "Error: fzf not installed. Use 'aws-set-profile' instead."
+        return 1
+    fi
+    
+    local profile
+    profile=$(aws configure list-profiles | fzf --prompt="Select AWS Profile: " --height=10)
+    
+    if [ -n "$profile" ]; then
+        export AWS_PROFILE="$profile"
+        echo "AWS Profile set to: $AWS_PROFILE"
+    fi
+}
+
+# Show current AWS identity (who am I?)
+aws-show-identity() {
+    echo "Current AWS Profile: ${AWS_PROFILE:-default}"
+    echo "AWS Identity:"
+    aws sts get-caller-identity --output table 2>/dev/null || echo "Failed to get AWS identity. Check your credentials."
+}
+
+# Clear AWS profile (revert to default)
+aws-clear-profile() {
+    unset AWS_PROFILE
+    echo "AWS Profile cleared. Using default profile."
+}
+
+# Show current AWS region
+aws-current-region() {
+    echo "Current AWS Region: $(aws configure get region)"
+}
+
+# Set AWS region
+aws-set-region() {
+    if [ -z "$1" ]; then
+        echo "Usage: aws-set-region <region>"
+        echo "Current region: $(aws configure get region)"
+        echo "Common regions: us-east-1, us-west-2, eu-west-1, eu-central-1, ap-southeast-1"
+        return 1
+    fi
+    
+    aws configure set region "$1"
+    echo "AWS Region set to: $1"
+}

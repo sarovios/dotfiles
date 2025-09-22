@@ -100,3 +100,4 @@ alias bi="brew install"
 alias bs="brew search"
 alias bu="brew update && brew upgrade"
 alias bc="brew cleanup"
+
