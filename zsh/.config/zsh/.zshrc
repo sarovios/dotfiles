@@ -133,3 +133,9 @@ export PATH="$GOPATH/bin:$PATH"
 
 # Rust
 export PATH="$HOME/.cargo/bin:$PATH"
+
+
+# Zscaler
+export SSL_CERT_FILE="/Users/n16273/.certs/combined-ca-bundle.pem"
+export REQUESTS_CA_BUNDLE="/Users/n16273/.certs/combined-ca-bundle.pem"
+export CURL_CA_BUNDLE="/Users/n16273/.certs/combined-ca-bundle.pem"
