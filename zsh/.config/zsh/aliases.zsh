@@ -81,7 +81,7 @@ alias vimrc="$EDITOR ~/.config/nvim/init.vim"
 alias aliases="$EDITOR ~/.config/zsh/aliases.zsh"
 
 # Reload shell
-alias reload="source ~/.zshrc"
+alias reload="source ~/.config/zsh/.zshrc"
 
 # Clear screen
 alias c="clear"
