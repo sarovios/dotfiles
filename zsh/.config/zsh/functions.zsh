@@ -120,6 +120,50 @@ vid2gif() {
 
 # AWS Profile Management Functions
 
+# Fuzzy command search - search history by partial command
+fzf-command-search() {
+    if ! command -v fzf >/dev/null 2>&1; then
+        echo "fzf not installed"
+        return 1
+    fi
+    
+    # Search through history for commands containing the search term
+    local query="$1"
+    local selected_cmd
+    
+    if [ -n "$query" ]; then
+        # If query provided, pre-filter history
+        selected_cmd=$(history 1 | awk '{$1=""; print substr($0,2)}' | grep -i "$query" | fzf --query="$query" --height=40% --reverse)
+    else
+        # No query, show all history
+        selected_cmd=$(history 1 | awk '{$1=""; print substr($0,2)}' | fzf --height=40% --reverse)
+    fi
+    
+    if [ -n "$selected_cmd" ]; then
+        # Put the command on the command line for editing
+        print -z "$selected_cmd"
+    fi
+}
+
+# Quick alias for fuzzy command search
+alias fcs='fzf-command-search'
+
+# Fuzzy find and execute from history
+fzf-history-execute() {
+    if ! command -v fzf >/dev/null 2>&1; then
+        echo "fzf not installed"
+        return 1
+    fi
+    
+    local selected_cmd
+    selected_cmd=$(history 1 | awk '{$1=""; print substr($0,2)}' | fzf --height=40% --reverse)
+    
+    if [ -n "$selected_cmd" ]; then
+        echo "Executing: $selected_cmd"
+        eval "$selected_cmd"
+    fi
+}
+
 # List all available AWS profiles
 aws-list-profiles() {
     echo "Available AWS profiles:"

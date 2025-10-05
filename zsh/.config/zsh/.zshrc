@@ -58,6 +58,21 @@ bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 bindkey '^[w' kill-region
 
+# Fuzzy search keybindings (requires fzf)
+if command -v fzf >/dev/null 2>&1; then
+    # Ctrl+R for fuzzy history search
+    bindkey '^r' fzf-history-widget
+    
+    # Ctrl+T for fuzzy file search
+    bindkey '^t' fzf-file-widget
+    
+    # Alt+C for fuzzy directory change
+    bindkey '\ec' fzf-cd-widget
+    
+    # Ctrl+X Ctrl+R for fuzzy command search with query
+    bindkey '^x^r' fzf-command-search
+fi
+
 # History
 HISTSIZE=5000
 HISTFILE="$XDG_DATA_HOME/zsh/history"
