@@ -1,12 +1,8 @@
 # ~/.config/zsh/.zshrc
 # Main zsh configuration file
 
-# Homebrew setup (for Apple Silicon Macs) - MUST BE EARLY
-if [[ -f "/opt/homebrew/bin/brew" ]]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-elif [[ -f "/usr/local/bin/brew" ]]; then
-    eval "$(/usr/local/bin/brew shellenv)"
-fi
+# Ensure .zshenv is sourced (for interactive shells)
+[[ -f ~/.zshenv ]] && source ~/.zshenv
 
 # Ensure XDG directories exist
 mkdir -p "$XDG_DATA_HOME/zsh"
@@ -108,8 +104,15 @@ else
     echo "Warning: fzf not found. Install with 'brew install fzf' for enhanced file/history search."
 fi
 
+if command -v pyenv >/dev/null 2>&1; then
+    eval "$(pyenv init -)"
+fi
+
+if command -v jenv >/dev/null 2>&1; then
+    eval "$(jenv init -)"
+fi
+
 if command -v starship >/dev/null 2>&1; then
-    export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
     eval "$(starship init zsh)"
 else
     echo "Warning: starship not found. Install with 'brew install starship' for modern prompt."
@@ -127,30 +130,3 @@ fi
 if ! command -v rg >/dev/null 2>&1; then
     echo "Info: rg (ripgrep) not found. Install with 'brew install ripgrep' for fast text search."
 fi
-
-# Environment variables
-export EDITOR="nvim"
-export VISUAL="nvim"
-export BROWSER="firefox"
-
-# Add local bin to PATH
-export PATH="$HOME/.local/bin:$PATH"
-
-# JetBrains Toolbox (IntelliJ, PyCharm, etc.)
-export PATH="$PATH:$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
-
-# Node.js
-export PATH="$HOME/.npm-global/bin:$PATH"
-
-# Go
-export GOPATH="$HOME/go"
-export PATH="$GOPATH/bin:$PATH"
-
-# Rust
-export PATH="$HOME/.cargo/bin:$PATH"
-
-
-# Zscaler
-export SSL_CERT_FILE="/Users/n16273/.certs/combined-ca-bundle.pem"
-export REQUESTS_CA_BUNDLE="/Users/n16273/.certs/combined-ca-bundle.pem"
-export CURL_CA_BUNDLE="/Users/n16273/.certs/combined-ca-bundle.pem"

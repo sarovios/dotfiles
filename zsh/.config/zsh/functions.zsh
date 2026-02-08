@@ -238,3 +238,164 @@ aws-set-region() {
     aws configure set region "$1"
     echo "AWS Region set to: $1"
 }
+
+# Consul 
+function dev-consul() {
+	export CONSUL_HTTP_ADDR="https://consul.tec.dmn.we1.nexus.newday.co.uk"
+	export DEPLOY_CONSUL_URL="http://consul.tec.dmn.we1.nexus.newday.co.uk"
+}
+
+function pro-consul() {
+	export CONSUL_HTTP_ADDR="https://consul.tec.pmn.we1.nexus.newday.co.uk"
+	export DEPLOY_CONSUL_URL="http://consul.tec.pmn.we1.nexus.newday.co.uk"
+}
+
+# Docker Cleanup Functions
+
+# Remove all stopped containers
+docker-cleanup-containers() {
+    echo "Removing all stopped containers..."
+    local stopped_containers=$(docker ps -aq --filter status=exited)
+    if [ -n "$stopped_containers" ]; then
+        docker rm $stopped_containers
+        echo "✅ Removed stopped containers"
+    else
+        echo "ℹ️  No stopped containers to remove"
+    fi
+}
+
+# Remove dangling images (untagged)
+docker-cleanup-dangling() {
+    echo "Removing dangling images..."
+    local dangling_images=$(docker images -f "dangling=true" -q)
+    if [ -n "$dangling_images" ]; then
+        docker rmi $dangling_images
+        echo "✅ Removed dangling images"
+    else
+        echo "ℹ️  No dangling images to remove"
+    fi
+}
+
+# Remove unused images (not used by any container)
+docker-cleanup-unused-images() {
+    echo "Removing unused images..."
+    docker image prune -f
+    echo "✅ Removed unused images"
+}
+
+# Remove unused volumes
+docker-cleanup-volumes() {
+    echo "Removing unused volumes..."
+    docker volume prune -f
+    echo "✅ Removed unused volumes"
+}
+
+# Remove unused networks
+docker-cleanup-networks() {
+    echo "Removing unused networks..."
+    docker network prune -f
+    echo "✅ Removed unused networks"
+}
+
+# Remove build cache
+docker-cleanup-cache() {
+    echo "Removing build cache..."
+    docker builder prune -f
+    echo "✅ Removed build cache"
+}
+
+# Complete system cleanup (everything)
+docker-cleanup-all() {
+    echo "🧹 Starting complete Docker cleanup..."
+    echo "⚠️  This will remove:"
+    echo "   - All stopped containers"
+    echo "   - All dangling images"
+    echo "   - All unused images"
+    echo "   - All unused volumes"
+    echo "   - All unused networks"
+    echo "   - All build cache"
+    echo ""
+    
+    read "confirm?Are you sure you want to continue? (y/N): "
+    if [[ "$confirm" =~ ^[Yy]$ ]]; then
+        docker system prune -af --volumes
+        echo "✅ Complete Docker cleanup finished!"
+        docker-show-space
+    else
+        echo "❌ Cleanup cancelled"
+    fi
+}
+
+# Show Docker disk usage
+docker-show-space() {
+    echo ""
+    echo "📊 Docker disk usage:"
+    docker system df
+}
+
+# Interactive cleanup menu
+docker-cleanup-menu() {
+    if ! command -v docker >/dev/null 2>&1; then
+        echo "❌ Docker not found. Please install Docker first."
+        return 1
+    fi
+    
+    echo "🐳 Docker Cleanup Menu"
+    echo "======================"
+    echo "1) Remove stopped containers"
+    echo "2) Remove dangling images"
+    echo "3) Remove unused images"
+    echo "4) Remove unused volumes"
+    echo "5) Remove unused networks"
+    echo "6) Remove build cache"
+    echo "7) Complete cleanup (ALL)"
+    echo "8) Show disk usage"
+    echo "9) Exit"
+    echo ""
+    
+    read "choice?Select option (1-9): "
+    
+    case $choice in
+        1) docker-cleanup-containers ;;
+        2) docker-cleanup-dangling ;;
+        3) docker-cleanup-unused-images ;;
+        4) docker-cleanup-volumes ;;
+        5) docker-cleanup-networks ;;
+        6) docker-cleanup-cache ;;
+        7) docker-cleanup-all ;;
+        8) docker-show-space ;;
+        9) echo "👋 Goodbye!" ;;
+        *) echo "❌ Invalid option. Please select 1-9." ;;
+    esac
+}
+
+# Stop and remove all containers (nuclear option)
+docker-nuke-containers() {
+    echo "🚨 Stopping and removing ALL containers..."
+    read "confirm?This will stop and remove ALL Docker containers. Continue? (y/N): "
+    if [[ "$confirm" =~ ^[Yy]$ ]]; then
+        docker stop $(docker ps -aq) 2>/dev/null
+        docker rm $(docker ps -aq) 2>/dev/null
+        echo "✅ All containers stopped and removed"
+    else
+        echo "❌ Operation cancelled"
+    fi
+}
+
+# Remove all images (nuclear option)
+docker-nuke-images() {
+    echo "🚨 Removing ALL Docker images..."
+    read "confirm?This will remove ALL Docker images. Continue? (y/N): "
+    if [[ "$confirm" =~ ^[Yy]$ ]]; then
+        docker rmi $(docker images -q) -f 2>/dev/null
+        echo "✅ All images removed"
+    else
+        echo "❌ Operation cancelled"
+    fi
+}
+
+# Show runninM containers with resource usage
+docker-ps-detailed() {
+    echo "📋 Running containers with resource usage:"
+    docker stats --no-stream
+}

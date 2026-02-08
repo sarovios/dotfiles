@@ -1,0 +1,21 @@
+[
+  // Vim z* motion equivalents
+  {
+    "key": "z z",
+    "command": "revealLine",
+    "args": { "lineNumber": "active", "at": "center" },
+    "when": "editorTextFocus && vim.mode == 'Normal'"
+  },
+  {
+    "key": "z t",
+    "command": "revealLine",
+    "args": { "lineNumber": "active", "at": "top" },
+    "when": "editorTextFocus && vim.mode == 'Normal'"
+  },
+  {
+    "key": "z b",
+    "command": "revealLine",
+    "args": { "lineNumber": "active", "at": "bottom" },
+    "when": "editorTextFocus && vim.mode == 'Normal'"
+  }
+]

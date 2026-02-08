@@ -5,6 +5,9 @@ format = """
 $os$username$hostname$directory$git_branch$git_status$python$nodejs$rust$golang$package$memory_usage$cmd_duration
 $character"""
 
+# Allow a bit more time for slower commands (git status, node)
+command_timeout = 2000
+
 # Disable the blank line at the start of the prompt
 add_newline = false
 

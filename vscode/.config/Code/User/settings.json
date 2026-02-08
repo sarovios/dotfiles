@@ -1,0 +1,391 @@
+{
+  "diffEditor.maxComputationTime": 0,
+  "editor.accessibilitySupport": "off",
+  "editor.multiCursorLimit": 15000,
+  "editor.foldingStrategy": "indentation",
+  "notebook.stickyScroll.enabled": true,
+  "python.defaultInterpreterPath": "/opt/homebrew/Cellar/python@3.11/3.11.3/Frameworks/Python.framework/Versions/3.11/bin/python3.11",
+  "security.workspace.trust.untrustedFiles": "open",
+  "workbench.editorLargeFileConfirmation": 2048,
+  "terminal.integrated.env.osx": {
+    "Q_NEW_SESSION": "1",
+    "DBT_SNOWFLAKE_AD_USER_ID": "${env:DBT_SNOWFLAKE_AD_USER_ID}"
+  },
+  "snowflake.connectionsConfigFile": "/Users/n16273/.snowflake/connections.toml",
+  "files.associations": {
+    "*.sql": "jinja-sql",
+    "*.yml": "jinja-yml"
+  },
+  "altimate.onboardedMcpServer": true,
+  "workbench.tree.indent": 15,
+  "python.interpreter.infoVisibility": "always",
+  "git.blame.editorDecoration.enabled": true,
+  "redhat.telemetry.enabled": false,
+  "workbench.colorCustomizations": {
+    "tab.activeBackground": "#ffffff39",
+    // "tab.activeBackground": "#11ff001a",
+    "tab.activeBorderTop": "#e7e9e769",
+    "tab.activeBorder": "#ffffff"
+  },
+  "gitlens.ai.model": "vscode",
+  "gitlens.ai.vscode.model": "copilot:gpt-4",
+  "[jinja-sql]": {
+    "editor.defaultFormatter": "innoverio.vscode-dbt-power-user"
+  },
+  "diffEditor.ignoreTrimWhitespace": false,
+  "database-client.autoSync": true,
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "extensions.experimental.affinity": {
+    "asvetliakov.vscode-neovim": 1
+  },
+  "vscode-neovim.neovimInitVimPaths.darwin": "~/.config/nvim/init.lua",
+  "vscode-neovim.neovimExecutablePaths.darwin": "/opt/homebrew/bin/nvim",
+  // "vscode-neovim.useCtrlKeysForNormalMode": false,
+  // "vscode-neovim.useCtrlKeysForInsertMode": false,
+  "fzf-quick-open.initialWorkingDirectory": "${workspaceFolder}",
+  "zenMode.hideLineNumbers": false,
+  "editor.fontFamily": "'Jetbrains Mono Nerd Font'",
+  "editor.fontLigatures": true,
+  "editor.lineNumbers": "relative",
+  "vim.easymotion": true,
+  "whichkey.delay": 0,
+  // "whichkey.sortOrder": "alphabetically",
+  "whichkey.bindings": [
+    {
+      "key": " ",
+      "name": "Commands",
+      "type": "bindings",
+      "bindings": [
+        {
+          "key": "y",
+          "name": "Copy to clipboard",
+          "command": "editor.action.clipboardCopyAction"
+        }
+      ]
+    },
+    {
+      "key": "e",
+      "name": "Open Explorer",
+      "type": "command",
+      "command": "workbench.view.explorer"
+    },
+    { 
+      "key": "g",
+      "name": "Open Source Control",
+      "command": "workbench.view.scm",
+    },
+    {
+      "key": "l",
+      "name": "Toggle Left Sidebar",
+      "type": "command",
+      "command": "workbench.action.toggleSidebarVisibility"
+    },
+    {
+      "key": "r",
+      "name": "Toggle Right Sidebar",
+      "type": "command",
+      "command": "workbench.action.toggleAuxiliaryBar"
+    },
+    {
+      "key": "-",
+      "name": "Split Window Below",
+      "type": "command",
+      "command": "workbench.action.moveEditorToBelowGroup"
+    },
+    {
+      "key": "|",
+      "name": "Split Window Right",
+      "type": "command",
+      "command": "workbench.action.moveEditorToRightGroup"
+    },
+    {
+      "key": "t",
+      "name": "Open Terminal",
+      "type": "command",
+      "command": "workbench.action.terminal.toggleTerminal" 
+    },
+    {
+      "key": "w",
+      "name": "Window Navigation",
+      "type": "bindings",
+      "bindings": [
+        {
+          "key": "n",
+          "name": "Focus Left Editor",
+          "command": "workbench.action.focusLeftGroup"
+        },
+        {
+          "key": "i",
+          "name": "Focus Right Editor", 
+          "command": "workbench.action.focusRightGroup"
+        },
+        {
+          "key": "e",
+          "name": "Focus Below Editor",
+          "command": "workbench.action.focusBelowGroup"
+        },
+        {
+          "key": "u",
+          "name": "Focus Above Editor",
+          "command": "workbench.action.focusAboveGroup"
+        },
+        {
+          "key": "w",
+          "name": "Focus Next Editor",
+          "command": "workbench.action.focusNextGroup"
+        },
+        {
+          "key": "c",
+          "name": "Close Editor Group",
+          "command": "workbench.action.closeEditorsInGroup"
+        },
+        {
+          "key": "f",
+          "name": "Focus Editor",
+          "command": "workbench.action.focusActiveEditorGroup"
+        },
+        {
+          "key": "t",
+          "name": "Next Tab",
+          "command": "workbench.action.nextEditor"
+        },
+        {
+          "key": "T",
+          "name": "Previous Tab",
+          "command": "workbench.action.previousEditor"
+        },
+        {
+          "key": "N",
+          "name": "Move Editor Left",
+          "command": "workbench.action.moveEditorToLeftGroup"
+        },
+        {
+          "key": "I",
+          "name": "Move Editor Right",
+          "command": "workbench.action.moveEditorToRightGroup"
+        },
+        {
+          "key": "E",
+          "name": "Move Editor Down",
+          "command": "workbench.action.moveEditorToBelowGroup"
+        },
+        {
+          "key": "U",
+          "name": "Move Editor Up",
+          "command": "workbench.action.moveEditorToAboveGroup"
+        },
+        {
+          "key": "W",
+          "name": "Move Editor to Next Group",
+          "command": "workbench.action.moveEditorToNextGroup"
+        }
+      ]
+    },
+    {
+      "key": ",",
+      "name": "Buffers",
+      "command": "vscode-harpoon.editorQuickPick"
+    },
+    {
+      "key": "x",
+      "name": "Clear notifications",
+      "command": "notifications.clearAll"
+    },
+    {
+      "key": "f",
+      "name": "File/Find",
+      "type": "bindings",
+      "bindings": [
+        {
+          "key": "f",
+          "name": "Find files",
+          "command": "workbench.action.quickOpen"
+        },
+        {
+          "key": "r",
+          "name": "Find/Replace",
+          "command": "editor.action.startFindReplaceAction"
+        },
+        {
+          "key": "n",
+          "name": "New file",
+          "command": "explorer.newFile"
+        },
+        {
+          "key": "d",
+          "name": "New directory",
+          "command": "explorer.newFolder"
+        }
+      ]
+    },
+    {
+      "key": "b",
+      "name": "buffer",
+      "type": "bindings",
+      "bindings": [
+        {
+          "key": "a",
+          "name": "Add buffer",
+          "command": "vscode-harpoon.addEditor"
+        },
+        {
+          "key": "o",
+          "name": "Quick open",
+          "command": "vscode-harpoon.editorQuickPick"
+        },
+        {
+          "key": "e",
+          "name": "Edit buffers",
+          "command": "vscode-harpoon.editEditors"
+        },
+        {
+          "key": "1",
+          "name": "Go to editor 1",
+          "command": "vscode-harpoon.gotoEditor1"
+        },
+        {
+          "key": "2",
+          "name": "Go to editor 2",
+          "command": "vscode-harpoon.gotoEditor2"
+        },
+        {
+          "key": "3",
+          "name": "Go to editor 3",
+          "command": "vscode-harpoon.gotoEditor3"
+        },
+        {
+          "key": "4",
+          "name": "Go to editor 4",
+          "command": "vscode-harpoon.gotoEditor4"
+        },
+        {
+          "key": "5",
+          "name": "Go to editor 5",
+          "command": "vscode-harpoon.gotoEditor5"
+        },
+        {
+          "key": "6",
+          "name": "Go to editor 6",
+          "command": "vscode-harpoon.gotoEditor6"
+        },
+        {
+          "key": "f",
+          "name": "Focus Editor",
+          "command": "workbench.action.focusActiveEditorGroup"
+        }
+      ]
+    },
+    {
+      "key": "p",
+      "name": "Projects",
+      "type": "bindings",
+      "bindings": [
+        {
+          "key": "a",
+          "name": "Save project",
+          "command": "projectManager.saveProject"
+        },
+        {
+          "key": "o",
+          "name": "List projects",
+          "command": "projectManager.listProjectsNewWindow"
+        },
+        {
+          "key": "e",
+          "name": "Edit projects",
+          "command": "projectManager.editProjects"
+        },
+        {
+          "key": "c",
+          "name": "Close project",
+          "command": "workbench.action.closeWindow"
+        },
+        {
+          "key": "r",
+          "name": "Refresh projects",
+          "command": "projectManager.refreshProjects"
+        }
+      ]
+    },
+    {
+      "key": "z",
+      "name": "Toggle zen mode",
+      "type": "command",
+      "command": "workbench.action.toggleZenMode"
+    },
+    {
+      "key": "a",
+      "name": "ai",
+      "type": "bindings",
+      "bindings": [
+        {
+          "key": "c",
+          "name": "Open Chat",
+          "command": "workbench.action.chat.open"
+        },
+        {
+          "key": "a",
+          "name": "Accept Suggestion",
+          "command": "chatEditor.action.acceptHunk"
+        },
+        {
+          "key": "A",
+          "name": "Accept All",
+          "command": "chatEditor.action.acceptAllEdits"
+       },
+        {
+          "key": "u",
+          "name": "Undo Suggestion",
+          "command": "chatEditor.action.undoHunk"
+        },
+        {
+          "key": "U",
+          "name": "Undo All",
+          "command": "chatEditing.discardAllFiles"
+        },
+        {
+          "key": "n",
+          "name": "Next edit",
+          "command": "chatEditor.action.navigateNext"
+        },
+        {
+          "key": "p",
+          "name": "Previous edit",
+          "command": "chatEditor.action.navigatePrevious"
+        },
+        {
+          "key": "t",
+          "name": "New chat",
+          "command": "workbench.action.chat.newChat"
+        }
+      ]
+    }
+  ],
+  "files.watcherExclude": {
+    "**/.bloop": true,
+    "**/.metals": true
+  },
+  "workbench.colorTheme": "Catppuccin Frappé",
+  "zenMode.centerLayout": false,
+  "zenMode.fullScreen": false,
+  "gitlens.views.scm.grouped.views": {
+    "commits": true,
+    "branches": true,
+    "remotes": true,
+    "stashes": true,
+    "tags": true,
+    "worktrees": true,
+    "contributors": true,
+    "fileHistory": true,
+    "repositories": true,
+    "searchAndCompare": false,
+    "launchpad": false
+  },
+  "chat.tools.terminal.autoApprove": {
+    "statement\"": true,
+    "/bin/ls": true
+  },
+  "git.blame.statusBarItem.enabled": true,
+  "makefile.configureOnOpen": true,
+  "git.openRepositoryInParentFolders": "never",
+}

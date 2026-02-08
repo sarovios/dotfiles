@@ -86,7 +86,7 @@ mkdir -p ~/.ssh
 log_info "Setting up dotfiles with Stow..."
 
 # List of directories to stow
-STOW_DIRS=("zsh" "git" "vim" "tmux")
+STOW_DIRS=("zsh" "git" "starship" "tmux" "vscode")
 
 for dir in "${STOW_DIRS[@]}"; do
     if [[ -d "$dir" ]]; then

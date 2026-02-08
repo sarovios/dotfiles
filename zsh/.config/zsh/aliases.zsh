@@ -32,11 +32,19 @@ alias g="git"
 alias d="docker"
 alias dc="docker-compose"
 alias dps="docker ps"
+alias dpsa="docker ps -a"
 alias di="docker images"
 alias drm="docker rm"
 alias drmi="docker rmi"
 alias dstop="docker stop"
 alias dstart="docker start"
+
+# Docker cleanup aliases
+alias dclean="docker-cleanup-menu"
+alias dclean-containers="docker-cleanup-containers"
+alias dclean-images="docker-cleanup-unused-images"
+alias dclean-all="docker-cleanup-all"
+alias dspace="docker-show-space"
 
 # Kubernetes
 alias k="kubectl"
@@ -81,7 +89,7 @@ alias vimrc="$EDITOR ~/.config/nvim/init.vim"
 alias aliases="$EDITOR ~/.config/zsh/aliases.zsh"
 
 # Reload shell
-alias reload="source ~/.config/zsh/.zshrc"
+alias reload="source ~/.zshenv && source ~/.config/zsh/.zshrc"
 
 # Clear screen
 alias c="clear"
