@@ -131,7 +131,9 @@ else
     else
         log_warning "Portfile not found, skipping package installation"
     fi
-fiNote about eza installation
+fi
+
+# GUI application installation notes for MacPorts users
 if [ "$PKG_MANAGER" = "macports" ]; then
     log_warning ""
     log_warning "Note: GUI applications (VS Code, Docker, Chrome, etc.) need to be installed manually:"
