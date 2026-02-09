@@ -9,7 +9,7 @@ brew "tmux"
 brew "fzf"
 brew "ripgrep"
 brew "bat"
-brew "eza"
+# Note: eza is installed conditionally in install.sh based on macOS version
 brew "jq"
 brew "fd"
 brew "lf"
@@ -53,8 +53,6 @@ brew "findutils"
 
 # Development environments - Java
 cask "temurin"
-cask "temurin8"
-cask "temurin11"
 cask "temurin@8"
 cask "temurin@11"
 

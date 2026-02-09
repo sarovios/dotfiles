@@ -116,4 +116,32 @@ if [[ ! -f ~/.ssh/id_rsa && ! -f ~/.ssh/id_ed25519 ]]; then
 fi
 
 log_success "Dotfiles installation complete!"
+
+# Install eza based on macOS version
+if ! command -v eza &>/dev/null; then
+    log_info "Installing eza..."
+    
+    # Get macOS version (e.g., "13.0" or "12.6")
+    macos_version=$(sw_vers -productVersion | cut -d '.' -f 1)
+    
+    if [ "$macos_version" -ge 13 ]; then
+        # macOS 13+ can use Homebrew
+        log_info "macOS $macos_version detected - installing eza via Homebrew..."
+        brew install eza
+        log_success "eza installed via Homebrew"
+    else
+        # macOS 12 or older - use cargo
+        log_info "macOS $macos_version detected - installing eza via cargo..."
+        
+        # Install rust if not present
+        if ! command -v cargo &>/dev/null; then
+            log_info "Installing Rust for cargo..."
+            brew install rust
+        fi
+        
+        cargo install eza
+        log_success "eza installed via cargo"
+    fi
+fi
+
 log_info "Please restart your terminal or run 'source ~/.zshrc' to apply changes"

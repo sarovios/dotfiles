@@ -15,8 +15,8 @@ if command -v eza >/dev/null 2>&1; then
     alias la="eza -la"
     alias lt="eza --tree"
 else
-    alias ll="ls -l"
-    alias la="ls -la"
+    alias ll="ls -lG"
+    alias la="ls -laG"
 fi
 
 # File operations
