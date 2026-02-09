@@ -2,8 +2,8 @@
 # Install with: sudo port install <package>
 
 # Development tools - Core
-# git (usually pre-installed on macOS)
-# stow
+git
+stow
 neovim
 tmux
 fzf
@@ -21,6 +21,7 @@ python312
 python313
 pyenv
 go
+jenv
 openjdk17
 
 # Version control & Git tools
@@ -37,13 +38,14 @@ podman
 # Build & Development tools
 sbt
 parallel
-pipenv
+py-pipenv
 
 # Utilities
 htop
 thefuck
 autossh
 ansiweather
+astro
 duckdb
 pandoc
 grep
