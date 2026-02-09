@@ -2,6 +2,7 @@
 
 # Dotfiles installation script
 # This script sets up a complete development environment
+# Supports both Homebrew (macOS 13+) and MacPorts (macOS 12 and older)
 
 set -e  # Exit on any error
 
@@ -37,6 +38,19 @@ fi
 
 log_info "Starting dotfiles installation..."
 
+# Get macOS version
+macos_version=$(sw_vers -productVersion | cut -d '.' -f 1)
+log_info "Detected macOS version: $(sw_vers -productVersion)"
+
+# Determine package manager based on macOS version
+if [ "$macos_version" -ge 13 ]; then
+    PKG_MANAGER="homebrew"
+    log_info "Using Homebrew (recommended for macOS 13+)"
+else
+    PKG_MANAGER="macports"
+    log_info "Using MacPorts (recommended for macOS 12 and older)"
+fi
+
 # Install Xcode Command Line Tools if not already installed
 if ! xcode-select -p &>/dev/null; then
     log_info "Installing Xcode Command Line Tools..."
@@ -45,63 +59,89 @@ if ! xcode-select -p &>/dev/null; then
     exit 0
 fi
 
-# Install Homebrew if not already installed
-if ! command -v brew &>/dev/null; then
-    log_info "Installing Homebrew..."
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    
-    # Add Homebrew to PATH for Apple Silicon Macs
-    if [[ $(uname -m) == "arm64" ]]; then
-        echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
-        eval "$(/opt/homebrew/bin/brew shellenv)"
-    fi
-else
-    log_success "Homebrew already installed"
-fi
-
-# Update Homebrew
-log_info "Updating Homebrew..."
-brew update
-
-# Install packages from Brewfile
-if [[ -f "Brewfile" ]]; then
-    log_info "Installing packages from Brewfile..."
-    brew bundle
-else
-    log_warning "Brewfile not found, skipping package installation"
-fi
-
-# Install Stow if not already installed
-if ! command -v stow &>/dev/null; then
-    log_info "Installing GNU Stow..."
-    brew install stow
-fi
-
-# Create necessary directories
-log_info "Creating configuration directories..."
-mkdir -p ~/.config
-mkdir -p ~/.ssh
-
-# Stow dotfiles
-log_info "Setting up dotfiles with Stow..."
-
-# List of directories to stow
-STOW_DIRS=("zsh" "git" "starship" "tmux" "vscode")
-
-for dir in "${STOW_DIRS[@]}"; do
-    if [[ -d "$dir" ]]; then
-        log_info "Stowing $dir..."
-        stow "$dir"
-        log_success "$dir configuration linked"
+# Install package manager based on detected version
+if [ "$PKG_MANAGER" = "homebrew" ]; then
+    # Install Homebrew if not already installed
+    if ! command -v brew &>/dev/null; then
+        log_info "Installing Homebrew..."
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        
+        # Add Homebrew to PATH for Apple Silicon Macs
+        if [[ $(uname -m) == "arm64" ]]; then
+            echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+            eval "$(/opt/homebrew/bin/brew shellenv)"
+        fi
     else
-        log_warning "$dir directory not found, skipping"
+        log_success "Homebrew already installed"
     fi
-done
 
-# Set zsh as default shell if not already
-if [[ "$SHELL" != "/bin/zsh" && "$SHELL" != "/usr/local/bin/zsh" && "$SHELL" != "/opt/homebrew/bin/zsh" ]]; then
-    log_info "Setting zsh as default shell..."
-    chsh -s $(which zsh)
+    # Update Homebrew
+    log_info "Updating Homebrew..."
+    brew update
+
+    # Install packages from Brewfile
+    if [[ -f "Brewfile" ]]; then
+        log_info "Installing packages from Brewfile..."
+        brew bundle
+    else
+        log_warning "Brewfile not found, skipping package installation"
+    fi
+
+    # Install Stow if not already installed
+    if ! command -v stow &>/dev/null; then
+        log_info "Installing GNU Stow..."
+        brew install stow
+    fi
+
+else
+    # Install MacPorts if not already installed
+    if ! command -v port &>/dev/null; then
+        log_error "MacPorts is not installed."
+        log_info "Please install MacPorts from: https://www.macports.org/install.php"
+        log_info "After installing MacPorts, run this script again."
+        exit 1
+    else
+        log_success "MacPorts already installed"
+    fi
+
+    # Update MacPorts
+    log_info "Updating MacPorts..."
+    sudo port selfupdate
+
+    # Install GNU Stow first
+    if ! command -v stow &>/dev/null; then
+        log_info "Installing GNU Stow..."
+        sudo port install stow
+    fi
+
+    # Install packages from Portfile
+    if [[ -f "Portfile" ]]; then
+        log_info "Installing packages from Portfile..."
+        log_warning "This may take a while as MacPorts builds from source..."
+        
+        while IFS= read -r package; do
+            # Skip comments and empty lines
+            [[ -z "$package" || "$package" =~ ^# ]] && continue
+            
+            log_info "Installing: $package"
+            sudo port install "$package" || log_warning "Failed to install $package, continuing..."
+        done < <(grep -v '^#' Portfile | grep -v '^$')
+        
+        log_success "MacPorts packages installed"
+    else
+        log_warning "Portfile not found, skipping package installation"
+    fi
+fiNote about eza installation
+if [ "$PKG_MANAGER" = "macports" ]; then
+    log_warning ""
+    log_warning "Note: GUI applications (VS Code, Docker, Chrome, etc.) need to be installed manually:"
+    log_warning "  - VS Code: https://code.visualstudio.com/"
+    log_warning "  - Docker Desktop: https://www.docker.com/"
+    log_warning "  - Google Chrome: https://www.google.com/chrome/"
+    log_warning "  - Postman: https://www.postman.com/"
+    log_warning "  - Rectangle: https://rectangleapp.com/"
+    log_warning "  - MonitorControl: https://github.com/MonitorControl/MonitorControl"
+    log_warning "  - Maccy: https://maccy.app/"
 fi
 
 # Apply macOS defaults (skipped for now)
@@ -116,32 +156,4 @@ if [[ ! -f ~/.ssh/id_rsa && ! -f ~/.ssh/id_ed25519 ]]; then
 fi
 
 log_success "Dotfiles installation complete!"
-
-# Install eza based on macOS version
-if ! command -v eza &>/dev/null; then
-    log_info "Installing eza..."
-    
-    # Get macOS version (e.g., "13.0" or "12.6")
-    macos_version=$(sw_vers -productVersion | cut -d '.' -f 1)
-    
-    if [ "$macos_version" -ge 13 ]; then
-        # macOS 13+ can use Homebrew
-        log_info "macOS $macos_version detected - installing eza via Homebrew..."
-        brew install eza
-        log_success "eza installed via Homebrew"
-    else
-        # macOS 12 or older - use cargo
-        log_info "macOS $macos_version detected - installing eza via cargo..."
-        
-        # Install rust if not present
-        if ! command -v cargo &>/dev/null; then
-            log_info "Installing Rust for cargo..."
-            brew install rust
-        fi
-        
-        cargo install eza
-        log_success "eza installed via cargo"
-    fi
-fi
-
 log_info "Please restart your terminal or run 'source ~/.zshrc' to apply changes"

@@ -7,7 +7,7 @@ Personal dotfiles for setting up a development environment quickly and consisten
 - **Shell Configuration**: Custom zsh setup with aliases, functions, and Starship prompt
 - **Git Configuration**: Modern git settings with Delta pager and useful aliases
 - **Development Tools**: Neovim configuration with plugins and modern terminal setup
-- **Package Management**: Automated installation of essential tools via Homebrew
+- **Package Management**: Automated installation via Homebrew (macOS 13+) or MacPorts (macOS 12 and older)
 - **GNU Stow**: Symlink management for clean, modular organization
 - **Modular Installation**: Install individual components or everything at once
 
@@ -19,6 +19,7 @@ git clone https://github.com/yourusername/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 
 # Run the installation script
+# Automatically detects macOS version and uses appropriate package manager
 ./install.sh
 ```
 
@@ -75,7 +76,8 @@ dotfiles/
 ├── README.md               # This file
 ├── SETUP.md                # Detailed setup checklist
 ├── install.sh              # Automated setup script
-├── Brewfile                # Homebrew packages and applications
+├── Brewfile                # Homebrew packages (macOS 13+)
+├── Portfile                # MacPorts packages (macOS 12 and older)
 ├── git/                    # Git configuration
 │   └── .config/
 │       └── git/
@@ -179,8 +181,9 @@ stow -D zsh vscode     # Remove multiple configs
 ## Dependencies
 
 - macOS (some scripts are macOS-specific)
-- [Homebrew](https://brew.sh/) (installed automatically by install.sh)
-- [GNU Stow](https://www.gnu.org/software/stow/) (installed via Homebrew)
+- **macOS 13+**: [Homebrew](https://brew.sh/) (installed automatically by install.sh)
+- **macOS 12 and older**: [MacPorts](https://www.macports.org/install.php) (must be installed manually first)
+- [GNU Stow](https://www.gnu.org/software/stow/) (installed via package manager)
 
 ## Key Features
 

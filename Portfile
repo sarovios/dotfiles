@@ -1,0 +1,55 @@
+# MacPorts packages for macOS 12 and older
+# Install with: sudo port install <package>
+
+# Development tools - Core
+# git (usually pre-installed on macOS)
+# stow
+neovim
+tmux
+fzf
+ripgrep
+bat
+eza
+jq
+fd
+lf
+
+# Programming languages
+nodejs18  # LTS version compatible with older macOS
+python311
+python312
+python313
+pyenv
+go
+openjdk17
+
+# Version control & Git tools
+gh
+git-delta
+
+# Terminal enhancements
+starship
+
+# Cloud & Infrastructure
+awscli
+podman
+
+# Build & Development tools
+sbt
+parallel
+pipenv
+
+# Utilities
+htop
+thefuck
+autossh
+ansiweather
+duckdb
+pandoc
+grep
+findutils
+
+# Note: GUI applications need to be installed manually or via different methods
+# - VS Code: Download from code.visualstudio.com
+# - Docker Desktop: Download from docker.com
+# - Google Chrome, etc.: Download from respective websites

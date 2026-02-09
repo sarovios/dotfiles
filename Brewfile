@@ -1,6 +1,3 @@
-# Taps
-tap "homebrew/cask-versions"
-
 # Development tools - Core
 brew "git"
 brew "stow"
@@ -9,7 +6,7 @@ brew "tmux"
 brew "fzf"
 brew "ripgrep"
 brew "bat"
-# Note: eza is installed conditionally in install.sh based on macOS version
+brew "eza"
 brew "jq"
 brew "fd"
 brew "lf"
