@@ -97,8 +97,21 @@ else
     # Install MacPorts if not already installed
     if ! command -v port &>/dev/null; then
         log_error "MacPorts is not installed."
-        log_info "Please install MacPorts from: https://www.macports.org/install.php"
-        log_info "After installing MacPorts, run this script again."
+        log_info ""
+        log_info "MacPorts installation steps:"
+        log_info "1. Download the installer for macOS $(sw_vers -productVersion) from:"
+        log_info "   https://www.macports.org/install.php"
+        log_info "2. Open the downloaded .pkg file and follow the installation wizard"
+        log_info "3. After installation, open a new terminal and run this script again"
+        log_info ""
+        
+        # Offer to open the download page
+        read -p "Would you like to open the MacPorts download page now? (y/n): " -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            open "https://www.macports.org/install.php"
+            log_info "Opening MacPorts download page..."
+        fi
         exit 1
     else
         log_success "MacPorts already installed"
